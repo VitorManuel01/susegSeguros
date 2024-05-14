@@ -1,0 +1,67 @@
+.container-footer{
+    width: 100%;
+    height: 65vh;
+    max-width: 100%;
+    padding: 0; 
+    background-color: #000000;
+}
+.banner-footer {
+    position: relative;
+    z-index: 0;
+    height: 65vh;
+    width: 100%;
+}
+
+.banner-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url(/IMG/family-with-bbay-girl-choosing-car-car-saloon.jpg);
+    opacity: 0.32;
+    z-index: -1;
+    height: 65vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 69%;
+    background-position-y: 20%;
+}
+
+.banner-text-footer img{
+    width: 20%;
+}
+
+.social-media img{
+    width: 100%;
+}
+
+.social-media ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin-left: 2%;
+}
+
+.social-media ul li{
+    padding: 10px;
+}
+
+.banner-text-footer .dados li{
+    color: white;
+    list-style-type: none;
+}
+
+.banner-text-footer .dados li a{
+    color: white;
+    text-decoration: none;
+}
+
+#rodape{
+    width: 100%;
+    max-width: 100%;
+    color: white;
+    background-color: #742F2F;
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,57 @@
+@font-face {
+    font-family: Kanit;
+    src: url(/fonts/Kanit/Kanit-Regular.ttf);
+    
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Kanit;
+}
+
+.container-banner{
+    width: 100%;
+    height: 65vh;
+    max-width: 100%;
+    padding: 0; 
+    background-color: #000000;
+}
+.banner {
+    position: relative;
+    z-index: 0;
+    height: 65vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url(/IMG/husband-with-pregnant-wife-their-son-sitting-car.jpg);
+    opacity: 0.32;
+    z-index: -1;
+    height: 65vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 69%;
+    background-position-y: 20%;
+}
+
+.banner-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    position: relative;
+    z-index: 1; 
+}
+
+.banner-text h1{
+    color: #ffffff;
+}

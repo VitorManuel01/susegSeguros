@@ -1,0 +1,11 @@
+@font-face {
+    font-family: Kanit;
+    src: url(/fonts/Kanit/Kanit-Regular.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Kanit;
+
+}

@@ -1,0 +1,51 @@
+.linha{
+    height: 2px;
+    width: 100%;
+    background-color: black;
+}
+
+.caixa{
+    display: flex;
+    justify-content: space-between;
+}
+
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: large;
+}
+
+#upper-caixa{
+    justify-content: end;
+}
+.logo {
+    width: 8%;
+}
+
+.logo img {
+    width: 100%;
+}
+
+#itens a{
+    color: black;
+}
+
+/* Styling for the "caixa" and "caixa-upper" divs */
+.bg-body-tertiary {
+    background-color: white !important;
+    color: black;
+}
+
+/* Add a transition effect for the hover */
+.nav-link, .logo {
+    transition: 0.3s;
+}
+
+/* Scale the navigation links and logo on hover */
+.nav-link:hover, .logo:hover {
+    transform: scale(1.1);
+}
+
+.navbar-nav li{
+    padding-left: 50px;
+}

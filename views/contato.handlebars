@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="/CSS/contato.css">
+
+{{> header}}
+
+<div class="container-banner">
+    <div class="banner">
+        <div class="banner-text">
+            <h1>ENTRE EM CONTATO COM A SUSEG</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row justify-content-evenly">
+        <div class="col-xs-12 col-sm-12 col-md-8">
+            <form action="/contato" method="post">
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="name">Nome Completo *</label>
+                            <input type="text" class="form-control" placeholder="Digite seu nome" name="name" required >
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="email">Seu E-Mail*</label>
+                            <input type="text" class="form-control" placeholder="nome@exemplo.com" name="email"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="cep">CEP *</label>
+                            <input type="text" class="form-control" placeholder="Informe seu CEP" id="cep-input"
+                                name="cep" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1">
+
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <select class="form-select" aria-label="Default select example" name="estado" required>
+                                <option selected>Escolha seu Estado</option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="cidade">Cidade</label>
+                            <input type="text" class="form-control" placeholder="lauro de freitas" name="cidade"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="assunto">Assunto *</label>
+                            <input type="text" class="form-control" placeholder="Digite o Assunto" name="assunto"
+                                required >
+                        </div>
+                    </div>
+
+
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="form_telefone">Telefone para contato</label>
+                            <input type="tel" name="telefone" id="telefone" class="form-control telefone"
+                                placeholder="Informe seu telefone" maxlength="40" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                            <label for="form_mensagem">Mensagem *</label>
+                            <textarea name="mensagem" id="mensagem" class="form-control" placeholder="Sua mensagem..."
+                                rows="4" data-msg-required="Por favor escreva-nos uma mensagem." maxlength="5000"
+                                required=""></textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input type="submit" data-loading-text="Enviando..."
+                            class="btn btn-success btn-orange btn-md pull-right" value="Enviar mensagem">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="container">
+                <div class="container">
+                    <span>Endereço</span>
+                    <a href="https://maps.app.goo.gl/FzVxMAREBV6LCa2RA" target="_blank">r 136, R. Silvadir F. Chaves, 28
+                        - Jardim
+                        Carapina
+                        <br>
+                        Lauro de Freitas - BA, 42700-850</a>
+                </div>
+
+                <div class="container">
+                    <span>WhatsApp</span>
+                    <p>(71) 9 8617-1932</p>
+                    <a href="https://api.whatsapp.com/send?phone=5571986171932" target="_blank">Clique aqui para enviar
+                        uma mensagem por
+                        whatsapp</a>
+                </div>
+                <div class="container">
+                    <a href="/"><button>COTE SEU SEGURO AQUI</button></a>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{{> footer}}
+
+<script src="/JS/contato.js"></script>

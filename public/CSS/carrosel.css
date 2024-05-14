@@ -1,0 +1,31 @@
+.container-carrosel{
+    width: 100%;
+}
+
+.carousel {
+    position: relative;
+    height: 65vh;
+}
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 65vh;
+}
+
+.carousel-item.active {
+    display: block;
+    height: 65vh;
+}
+
+.imagens-carrosel{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+}
+
+.imagens-carrosel img{
+    padding: 30px;
+}
