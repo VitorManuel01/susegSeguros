@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="/CSS/cotacao-auto.css">
+
+<div class="container-banner">
+    <div class="banner">
+        <div class="logo"><a href="/"><img src="/IMG/Suseg-Logo-sem-fundo.png" alt=""></a></div>
+        <div class="banner-text">
+
+            <h1>Seguro Auto</h1>
+            <a href="/">
+                << Voltar ao site</a>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="row">
+        <form action="/cotacao-auto" method="post">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Email address</label>
+                <input type="text" class="form-control" id="nome" name="nome">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+
+            <div class="mb-3">
+                <label for="CPF" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="CPF-input" name="CPF">
+            </div>
+
+            <div class="mb-3">
+                <label for="EstadoCivil" class="form-label">Estado Civil</label>
+                <select id="EstadoCivil" class="form-control" name="itens_EstadoCivil" required="required" value="">
+                    <option value="">Selecione seu estado civil</option>
+                    <option value="Solteiro(a)">Solteiro(a)</option>
+                    <option value="Casado">Casado(a) ou reside a mais de 2 anos com companheiro</option>
+                    <option value="Divorciado">Divorciado/Separado</option>
+                    <option value="Viuvo">Viúvo(a)</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" id="dataNascimento" class="form-control" name="dataNascimento" value="">
+            </div>
+
+            <div class="mb-3">
+                <label for="cep-input" class="form-label">CEP</label>
+                <input type="text" class="form-control" placeholder="Informe seu CEP" id="cep-input" name="cep" required>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+
+</div>

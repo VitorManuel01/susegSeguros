@@ -21,6 +21,14 @@ app.get('/contato', (req, res)=>{
     res.render('contato')
 })
 
+app.get('/seu-seguro', (req, res)=>{
+    res.render('seu-seguro')
+})
+
+app.get('/cotacao-auto', (req, res)=>{
+    res.render('cotacao-auto')
+})
+
 
 app.listen(5500, ()=>{
     console.log("Rodei a porra do sistema carai na porta http://localhost:5500")

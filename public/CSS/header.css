@@ -30,18 +30,15 @@ dl, ol, ul {
     color: black;
 }
 
-/* Styling for the "caixa" and "caixa-upper" divs */
 .bg-body-tertiary {
     background-color: white !important;
     color: black;
 }
 
-/* Add a transition effect for the hover */
 .nav-link, .logo {
     transition: 0.3s;
 }
 
-/* Scale the navigation links and logo on hover */
 .nav-link:hover, .logo:hover {
     transform: scale(1.1);
 }
