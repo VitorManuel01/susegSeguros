@@ -26,21 +26,11 @@ telefoneInput.addEventListener('focus', function (event) {
     });
 
 
-    telefoneInput.addEventListener('input', function (event) {
+telefoneInput.addEventListener('input', function (event) {
     let input = event.target
-    input.value = mascaraTel(input.value)
+
+    const tel = input.value.replace(/\D/g,'').substring(0, 11);
+    const TelFormatado = tel.replace(/(\d{2})(\d{1})(\d{4})(\d{4})$/,"($1) $2 $3-$4");
+    input.value = TelFormatado
 });
-
-telefoneInput.addEventListener('blur', function (event) {
-    const input = event.target;
-    input.placeholder = 'Informe seu telefone';
-  });
-
-const mascaraTel = (value) => {
-    if (!value) return ""
-    value = value.replace(/\D/g,'')
-    value = value.replace(/(\d{2})(\d)/,"($1) $2")
-    value = value.replace(/(\d)(\d{4})$/,"$1-$2")
-    return value
-}
 
