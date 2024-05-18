@@ -30,6 +30,6 @@ app.get('/cotacao-auto', (req, res)=>{
 })
 
 
-app.listen(5500, ()=>{
-    console.log("Rodei a porra do sistema carai na porta http://localhost:5500")
+app.listen(8800, ()=>{
+    console.log("Rodei a porra do sistema carai na porta http://localhost:8800")
 })

@@ -51,7 +51,23 @@
 
             <div class="mb-3">
                 <label for="cep-input" class="form-label">CEP</label>
-                <input type="text" class="form-control" placeholder="Informe seu CEP" id="cep-input" name="cep" required>
+                <input type="text" class="form-control" placeholder="Informe seu CEP" id="cep-input" name="cep" onblur="cep()">
+                <section id="center">
+                    <input id="logradouro" type="text" placeholder="Logradouro">
+                    <input id="complemento" type="text" placeholder="Complemento">
+                    <input id="bairro" type="text" placeholder="Bairro">
+                    <input id="localidade" type="text" placeholder="Localidade">
+                    <input id="uf" type="text" placeholder="Estado">
+                </section>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="marca" class="form-label">Marca</label>
+                <select id="marca" class="form-control" name="marca" required="required" onclick="getMarcasCarros()" value="">
+                    <option value="1">Selecione uma Marca</option>
+
+                </select>
             </div>
 
             <div class="mb-3 form-check">
@@ -64,3 +80,5 @@
 
 
 </div>
+
+<script src="/JS/cotacao-carro.js"></script>
