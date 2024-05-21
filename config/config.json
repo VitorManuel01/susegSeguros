@@ -1,9 +1,10 @@
 {
   "development": {
-    "username": "Budah",
-    "password": "VitorSQLDeusVult",
-    "database": "database_development",
-    "host": "127.0.0.1",
+    "username": "root",
+    "password": "ASoPEzJsNmCZxoCoPlTGODRZMEYOcpqM",
+    "database": "susegseguros",
+    "port": "49730",
+    "host": "monorail.proxy.rlwy.net",
     "dialect": "mysql"
   },
   "test": {

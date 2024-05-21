@@ -3,15 +3,21 @@ const {engine} = require('express-handlebars')
 const bp = require('body-parser')
 const multer = require('multer')
 
+
+
 const app = express()
 const upload = multer({dest: 'public/IMG'})
 
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
 app.set('views', './views')
-app.use(bp.urlencoded({extended: false}))
+app.use(bp.urlencoded({extended: true}))
 app.use(bp.json())
 app.use(express.static('public'));
+
+let cotacoes = [];
+let mensagens = [];
+const Mensagem = require('./models/mensagem');
 
 app.get('/', (req, res)=>{
     res.render('home')
@@ -29,7 +35,90 @@ app.get('/cotacao-auto', (req, res)=>{
     res.render('cotacao-auto')
 })
 
+app.post('/cotacao-auto', (req, res) => {
+    const nome = req.body.nome;
+    const email = req.body.email;
+    const telefone = req.body.telefone.replace(/\D/g, '');
+    const cpf = req.body.CPF.replace(/\D/g, '');
+    const opcaoVeiculo = req.body.btnVeiculo;
+    const estadoCivil = req.body['itens_EstadoCivil'];
+    const dtNascimento = req.body.dataNascimento;
+    const cep = req.body.cep.replace(/\D/g, '');
+    const placa = req.body.placa.replace(/\D/g, '');
+    const chassis = req.body.chassis;
+    const marcaNome = req.body.marcaNome;
+    const marcaCodigo = req.body.marca;
+    const modeloNome = req.body.modeloNome;
+    const modeloCodigo = req.body.modelo;
+    const anoNome = req.body.anoNome;
+    const anoCodigo = req.body.anos;
+    const possuiSeguro = req.body.btnPossuiSeguro;
+    const possuiGaragem = req.body.btnPossuiGaragen;
+    const isZeroKm = req.body.btnIsZeroKm;
 
-app.listen(8800, ()=>{
-    console.log("Rodei a porra do sistema carai na porta http://localhost:8800")
+    const cotacao = {
+        nome: nome,
+        email: email,
+        telefone: telefone,
+        cpf: cpf,
+        opcaoVeiculo: opcaoVeiculo,
+        estadoCivil: estadoCivil,
+        dtNascimento: dtNascimento,
+        cep: cep,
+        placa: placa,
+        chassis: chassis,
+        marca: { nome: marcaNome, codigo: marcaCodigo },
+        modelo: { nome: modeloNome, codigo: modeloCodigo },
+        ano: { nome: anoNome, codigo: anoCodigo },
+        possuiSeguro: possuiSeguro,
+        possuiGaragem: possuiGaragem,
+        isZeroKm: isZeroKm
+    };
+
+    cotacoes.push(cotacao);
+    console.log(cotacoes);
+    res.render('cotacao-auto', { cotacoes });
+});
+
+
+app.post('/contato', async (req, res) => {
+    const nome = req.body.name;
+    const email = req.body.email;
+    const cep = req.body.cep.replace(/\D/g, '');
+    const estado = req.body.estado;
+    const cidade = req.body.cidade;
+    const assunto = req.body.assunto;
+    const telefone = req.body.telefone.replace(/\D/g, '');
+    const mensagemText = req.body.mensagem;
+
+    // Criar um objeto mensagem com todos os dados recebidos
+    const mensagem = {
+        nome: nome,
+        email: email,
+        cep: cep,
+        estado: estado,
+        cidade: cidade,
+        assunto: assunto,
+        telefone: telefone,
+        mensagemText: mensagemText
+    };
+
+    try {
+        // Salvar a mensagem no banco de dados usando Sequelize
+        const novaMensagem = await Mensagem.create(mensagem);
+        
+        // Adicionar a mensagem ao array de mensagens temporárias
+        mensagens.push(novaMensagem);
+
+        console.log(mensagens);
+        res.render('contato', { mensagens });
+    } catch (error) {
+        console.error('Erro ao salvar a mensagem:', error);
+        res.status(500).send('Erro ao salvar a mensagem.');
+    }
+});
+
+
+app.listen(5500, ()=>{
+    console.log("Rodei a porra do sistema no carai da porta http://localhost:5500")
 })

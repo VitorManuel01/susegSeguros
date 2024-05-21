@@ -72,6 +72,11 @@
 .card{
     background-color: #11415A;
     color: #ffffff;
+    transition: transform 0.3s;
+}
+.card:hover{
+    
+    transform: scale(1.2);
 }
 
 .card-body{

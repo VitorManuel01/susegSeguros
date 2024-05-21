@@ -14,16 +14,57 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Mensagem.init({
-    nomeCompleto: DataTypes.STRING,
+    nome: DataTypes.STRING,
     email: DataTypes.STRING,
     cep: DataTypes.STRING,
     estado: DataTypes.STRING,
     cidade: DataTypes.STRING,
     assunto: DataTypes.STRING,
-    telefone: DataTypes.STRING
+    telefone: DataTypes.STRING,
+    mensagemText: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'Mensagem',
   });
   return Mensagem;
 };
+
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database'); // Certifique-se de que o caminho está correto
+
+const Mensagem = sequelize.define('Mensagem', {
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    cep: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    estado: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    cidade: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    assunto: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    telefone: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    mensagemText: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    }
+});
+
+module.exports = Mensagem;

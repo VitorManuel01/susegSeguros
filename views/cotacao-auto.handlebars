@@ -6,7 +6,7 @@
         <div class="banner-text">
 
             <h1>Seguro Auto</h1>
-            <a href="/">
+            <a href="/" id="retornar">
                 << Voltar ao site</a>
 
         </div>
@@ -14,23 +14,31 @@
 </div>
 
 
-<div class="container">
+<div class="container" id="form-cotacao">
 
     <div class="row">
         <form action="/cotacao-auto" method="post">
+
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Informe seu nome">
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Informe seu E-Mail">
             </div>
 
             <div class="mb-3">
+                <label for="telefone" class="form-label">Telefone para contato</label>
+                <input type="tel" name="telefone" id="telefone" class="form-control telefone"
+                    placeholder="Informe seu telefone" maxlength="40" required>
+            </div>
+
+
+            <div class="mb-3">
                 <label for="CPF" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="CPF-input" name="CPF">
+                <input type="text" class="form-control" id="CPF-input" name="CPF" placeholder="Informe seu CPF">
             </div>
 
             <div class="mb-3">
@@ -50,33 +58,130 @@
             </div>
 
             <div class="mb-3">
-                <label for="cep-input" class="form-label">CEP</label>
-                <input type="text" class="form-control" placeholder="Informe seu CEP" id="cep-input" name="cep" onblur="cep()">
-                <section id="center">
-                    <input id="logradouro" type="text" placeholder="Logradouro">
-                    <input id="complemento" type="text" placeholder="Complemento">
-                    <input id="bairro" type="text" placeholder="Bairro">
-                    <input id="localidade" type="text" placeholder="Localidade">
-                    <input id="uf" type="text" placeholder="Estado">
-                </section>
-            </div>
+                <label for="cep-input" class="form-label">CEP onde o veículo pernoita</label>
+                <input type="text" class="form-control" placeholder="Informe seu CEP" id="cep-input" name="cep">
 
-
-            <div class="mb-3">
-                <label for="marca" class="form-label">Marca</label>
-                <select id="marca" class="form-control" name="marca" required="required" onclick="getMarcasCarros()" value="">
-                    <option value="1">Selecione uma Marca</option>
-
-                </select>
             </div>
 
             <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+
+                    <input type="radio" class="btn-check" name="btnVeiculo" value="carros" id="btnCarro"
+                        autocomplete="off" onclick="mudarRadioSelecionado(); usoDoCarro();">
+                    <label class="btn btn-outline-primary" for="btnCarro">Carro</label>
+
+                    <input type="radio" class="btn-check" name="btnVeiculo" value="caminhoes" id="btnCaminhao"
+                        autocomplete="off" onclick="mudarRadioSelecionado(); usoDoCaminhao();">
+                    <label class="btn btn-outline-primary" for="btnCaminhao">Caminhão</label>
+
+                </div>
+
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+
+            <div class="mb-3">
+                <label for="placa" class="form-label">Placa do Veículo</label>
+                <input type="text" class="form-control" placeholder="Informe a placa" id="placa" name="placa"
+                    data-inputmask="'mask': ['AAA-9999','AAA-9A99']">
+            </div>
+
+            <div class="mb-3">
+                <label for="chassis" class="form-label">Chassis do Veículo</label>
+                <input type="text" class="form-control" placeholder="Informe o Chassis" id="chassis" name="chassis">
+
+            </div>
+
+            <div class="mb-3">
+                <label for="marca" class="form-label">Marca</label>
+                <select id="marca" class="form-control" name="marca" required="required" onclick="loadMarcas()"
+                    onchange="loadModelos()" value="">
+                    <option value="1">Selecione uma Marca</option>
+
+                </select>
+                <input type="hidden" id="marcaNome" name="marcaNome">
+            </div>
+
+            <div class="mb-3">
+                <label for="modelo" class="form-label">Modelo</label>
+                <select id="modelo" class="form-control" name="modelo" required="required" onchange="loadAnos()"
+                    value="">
+                    <option value="1">Selecione um Modelo</option>
+
+                </select>
+                <input type="hidden" id="modeloNome" name="modeloNome">
+            </div>
+
+            <div class="mb-3">
+                <label for="anos" class="form-label">Ano</label>
+                <select id="anos" class="form-control" name="anos" required="required" value="" onchange="getAnoNome()">
+                    <option value="1">Selecione o Ano</option>
+
+                </select>
+                <input type="hidden" id="anoNome" name="anoNome">
+            </div>
+
+            <div class="mb-3 form-check">
+                <h5>O veículo já possui seguro?</h5>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+
+                    <input type="radio" class="btn-check" name="btnPossuiSeguro" value="possuiSeguro"
+                        id="btnPossuiSeguro" autocomplete="off" onclick="mostrarDatePicker()">
+                    <label class="btn btn-outline-primary" for="btnPossuiSeguro">Sim</label>
+
+                    <input type="radio" class="btn-check" name="btnPossuiSeguro" value="naoPossuiSeguro"
+                        id="btnNaoPossuiSeguro" autocomplete="off" onclick="esconderDatePicker()">
+                    <label class="btn btn-outline-primary" for="btnNaoPossuiSeguro">Não</label>
+
+                </div>
+
+            </div>
+
+            <div class="mb-3" id="datePickerSePossuiSeguro">
+
+            </div>
+
+
+
+            <div class="mb-3 form-check" id="usoDoVeiculo">
+
+            </div>
+            <div class="mb-3 form-check">
+                <h5>Possui garagem?</h5>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+
+                    <input type="radio" class="btn-check" name="btnPossuiGaragen" value="possuiGaragen"
+                        id="btnPossuiGaragen" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnPossuiGaragen">Sim</label>
+
+                    <input type="radio" class="btn-check" name="btnPossuiGaragen" value="naoPossuiGaragen"
+                        id="btnNaoPossuiGaragen" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnNaoPossuiGaragen">Não</label>
+
+                </div>
+
+            </div>
+
+            <div class="mb-3 form-check">
+                <h5>É Zero Km</h5>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+
+                    <input type="radio" class="btn-check" name="btnIsZeroKm" value="IsZeroKm" id="btnIsZeroKm"
+                        autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnIsZeroKm">Sim</label>
+
+                    <input type="radio" class="btn-check" name="btnIsZeroKm" value="naoIsZeroKm" id="btnNaoIsZeroKm"
+                        autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnNaoIsZeroKm">Não</label>
+
+                </div>
+
+            </div>
     </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 
 
 </div>

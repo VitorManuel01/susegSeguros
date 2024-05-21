@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nomeCompleto: {
+      nome: {
         type: Sequelize.STRING
       },
       email: {
@@ -29,6 +29,9 @@ module.exports = {
       },
       telefone: {
         type: Sequelize.STRING
+      },
+      mensagemText: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

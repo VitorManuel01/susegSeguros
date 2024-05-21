@@ -28,4 +28,9 @@
 
 .imagens-carrosel img{
     padding: 30px;
+    transition: transform 0.3s;
+}
+
+.imagens-carrosel img:hover {
+    transform: scale(1.2);
 }
