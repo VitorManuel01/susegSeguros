@@ -35,11 +35,11 @@ dl, ol, ul {
     color: black;
 }
 
-.nav-link, .logo {
+.nav-link {
     transition: 0.3s;
 }
 
-.nav-link:hover, .logo:hover {
+.nav-link:hover:hover {
     transform: scale(1.1);
 }
 
