@@ -46,3 +46,9 @@ dl, ol, ul {
 .navbar-nav li{
     padding-left: 50px;
 }
+
+#caixa-interna
+{
+
+    background-color: white !important; 
+}
