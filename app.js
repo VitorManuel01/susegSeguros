@@ -1,6 +1,8 @@
 const express = require('express')
 const {engine} = require('express-handlebars')
 const bp = require('body-parser')
+const session = require('express-session');
+const flash = require('express-flash');
 const multer = require('multer')
 
 
@@ -15,13 +17,23 @@ app.use(bp.urlencoded({extended: true}))
 app.use(bp.json())
 app.use(express.static('public'));
 
+app.use(session({
+    secret: 'chaveSuseg', 
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.use(flash());
+
+
+
 let cotacoes = [];
 let mensagens = [];
 const Mensagem = require('./models/mensagem');
 const Cotacao = require('./models/cotacao');
 
 app.get('/', (req, res)=>{
-    res.render('home')
+    res.render('home', { 'sucesso-cotacao': req.flash('sucesso-cotacao') })
 })
 
 app.get('/contato', (req, res)=>{
@@ -67,11 +79,6 @@ app.post('/cotacao-auto', upload.single('docVeic'), async (req, res) => {
         const possuiGaragem = req.body.btnPossuiGaragen;
         const isZeroKm = req.body.btnIsZeroKm;
 
-        // Validação básica para garantir que todos os campos obrigatórios não sejam nulos
-        if (!marcaNome || !marcaCodigo || !modeloNome || !modeloCodigo || !anoNome || !anoCodigo) {
-            return res.status(400).send('Campos obrigatórios estão faltando.');
-        }
-
         const cotacao = {
             nome: nome,
             email: email,
@@ -102,7 +109,10 @@ app.post('/cotacao-auto', upload.single('docVeic'), async (req, res) => {
         cotacoes.push(novaCotacao);
 
         console.log(cotacoes);
-        res.render('cotacao-auto', { cotacoes });
+
+        req.flash('sucesso-cotacao', 'Sua solicitação de cotação foi enviada. Por favor, aguarde o retorno por E-Mail e/ou WhatsApp!');
+
+        res.redirect('/');
     } catch (error) {
         console.error('Erro ao salvar a cotação:', error);
         res.status(500).send('Erro ao salvar a cotação.');

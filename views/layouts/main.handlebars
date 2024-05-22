@@ -22,6 +22,16 @@
 
 <body>
 
+
+    {{!-- Alerta caso a cotação foi bem sucedida --}}
+    <div class="container mt-3">
+        {{#if sucesso-cotacao}}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{sucesso-cotacao}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {{/if}}
+
     {{{body}}}
 
 
