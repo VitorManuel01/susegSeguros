@@ -17,7 +17,7 @@
 <div class="container" id="form-cotacao">
 
     <div class="row">
-        <form action="/cotacao-auto" method="post">
+        <form action="/cotacao-auto" method="post" enctype="multipart/form-data">
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
@@ -88,6 +88,12 @@
             <div class="mb-3">
                 <label for="chassis" class="form-label">Chassis do Veículo</label>
                 <input type="text" class="form-control" placeholder="Informe o Chassis" id="chassis" name="chassis">
+
+            </div>
+
+            <div class="mb-3">
+                <label for="docVeic" class="form-label">Documento do Veículo</label>
+                <input type="file" class="form-control" placeholder="Insira o documento do veículo" id="docVeic" name="docVeic">
 
             </div>
 

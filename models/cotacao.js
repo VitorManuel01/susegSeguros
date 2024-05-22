@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     cep: DataTypes.STRING,
     placa: DataTypes.STRING,
     chassis: DataTypes.STRING,
+    documento: DataTypes.STRING,
     marcaNome: DataTypes.STRING,
     marcaCodigo: DataTypes.STRING,
     modeloNome: DataTypes.STRING,
@@ -84,6 +85,10 @@ const Cotacao = sequelize.define('Cotacao', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    documento: {
+      type: DataTypes.STRING,
+      allowNull: false
+  },
     marcaNome: {
         type: DataTypes.STRING,
         allowNull: false

@@ -6,7 +6,7 @@ const multer = require('multer')
 
 
 const app = express()
-const upload = multer({dest: 'public/IMG'})
+const upload = multer({dest: 'public/DOCS'})
 
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
@@ -44,7 +44,7 @@ app.get('/sobre-nos', (req, res)=>{
     res.render('sobre-nos')
 })
 
-app.post('/cotacao-auto', async (req, res) => {
+app.post('/cotacao-auto', upload.single('docVeic'), async (req, res) => {
     try {
         const nome = req.body.nome;
         const email = req.body.email;
@@ -56,6 +56,7 @@ app.post('/cotacao-auto', async (req, res) => {
         const cep = req.body.cep.replace(/\D/g, '');
         const placa = req.body.placa.replace(/\D/g, '');
         const chassis = req.body.chassis;
+        const documento = req.file.filename;
         const marcaNome = req.body.marcaNome;
         const marcaCodigo = req.body.marca;
         const modeloNome = req.body.modeloNome;
@@ -82,6 +83,7 @@ app.post('/cotacao-auto', async (req, res) => {
             cep: cep,
             placa: placa,
             chassis: chassis,
+            documento: documento,
             marcaNome: marcaNome,
             marcaCodigo: marcaCodigo,
             modeloNome: modeloNome,

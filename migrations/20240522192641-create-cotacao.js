@@ -39,6 +39,9 @@ module.exports = {
       chassis: {
         type: Sequelize.STRING
       },
+      documento: {
+        type: Sequelize.STRING
+      },
       marcaNome: {
         type: Sequelize.STRING
       },
