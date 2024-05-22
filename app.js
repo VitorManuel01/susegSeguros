@@ -33,7 +33,7 @@ const Mensagem = require('./models/mensagem');
 const Cotacao = require('./models/cotacao');
 
 app.get('/', (req, res)=>{
-    res.render('home', { 'sucesso-cotacao': req.flash('sucesso-cotacao') })
+    res.render('home', { 'sucesso': req.flash('sucesso') })
 })
 
 app.get('/contato', (req, res)=>{
@@ -110,7 +110,7 @@ app.post('/cotacao-auto', upload.single('docVeic'), async (req, res) => {
 
         console.log(cotacoes);
 
-        req.flash('sucesso-cotacao', 'Sua solicitação de cotação foi enviada. Por favor, aguarde o retorno por E-Mail e/ou WhatsApp!');
+        req.flash('sucesso', 'Sua solicitação de cotação foi enviada. Por favor, aguarde o retorno por E-Mail e/ou WhatsApp!');
 
         res.redirect('/');
     } catch (error) {
@@ -151,7 +151,9 @@ app.post('/contato', async (req, res) => {
         mensagens.push(novaMensagem);
 
         console.log(mensagens);
-        res.render('contato', { mensagens });
+        req.flash('sucesso', 'Sua mensagem foi enviada! Obrigado pelo contato!');
+
+        res.redirect('/');
     } catch (error) {
         console.error('Erro ao salvar a mensagem:', error);
         res.status(500).send('Erro ao salvar a mensagem.');
