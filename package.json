@@ -18,6 +18,8 @@
     "inputmask": "^5.0.8",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.9.7",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
