@@ -26,3 +26,39 @@ module.exports = (sequelize, DataTypes) => {
   });
   return User;
 };
+
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
+
+const User = sequelize.define('User', {
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    senha: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    role: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    isAdmin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    isIntern: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    }
+}, {
+    sequelize,
+    modelName: 'User',
+});
+
+
+module.exports = User;
