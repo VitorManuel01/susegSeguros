@@ -1,10 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": "ASoPEzJsNmCZxoCoPlTGODRZMEYOcpqM",
-    "database": "susegseguros",
-    "port": "49730",
-    "host": "monorail.proxy.rlwy.net",
+    "password": "WZKtufAhNUwJzkLyJWAVPVTMTrEOQEOq",
+    "database": "railway",
+    "port": "39955",
+    "host": "roundhouse.proxy.rlwy.net",
     "dialect": "mysql"
   },
   "test": {

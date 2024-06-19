@@ -35,7 +35,7 @@ app.use(passport.initialize());
 const User = require('./models/user');
 
 app.post('/login', passport.authenticate('local', { 
-    
+    successRedirect: "/adm",
     failureRedirect: "/login", // Redirect back to login page on failure
     failureFlash: true // Enable flash messages for failure cases
 }));
@@ -72,15 +72,19 @@ app.get('/', (req, res) => {
     res.render('home', { 'sucesso': req.flash('sucesso') })
 })
 
-app.get('/contato', isLoggedIn, (req, res) => {
+app.get('/adm',isLoggedIn, (req, res) => {
+    res.render('adm')
+})
+
+app.get('/contato', (req, res) => {
     res.render('contato')
 })
 
-app.get('/seu-seguro', isLoggedIn,(req, res) => {
+app.get('/seu-seguro', (req, res) => {
     res.render('seu-seguro')
 })
 
-app.get('/cotacao-auto', isLoggedIn,(req, res) => {
+app.get('/cotacao-auto', (req, res) => {
     res.render('cotacao-auto')
 })
 
@@ -196,12 +200,12 @@ app.post('/contato', async (req, res) => {
     }
 });
 
-app.get('/register', (req, res) => {
+app.get('/adm/register', (req, res) => {
     res.render('register'); // Ensure 'register' corresponds to your HTML form view
 });
 
 // POST route for handling registration
-app.post('/register', async (req, res) => {
+app.post('/adm/register', async (req, res) => {
     try {
         const { nome, email, senha, role, isAdmin, isIntern } = req.body;
 
@@ -221,7 +225,7 @@ app.post('/register', async (req, res) => {
         res.redirect('/login');
     } catch (err) {
         console.error('Error:', err);
-        res.redirect('/register');
+        res.redirect('/adm/register');
     }
 });
 

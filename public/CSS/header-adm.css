@@ -1,0 +1,54 @@
+.linha{
+    height: 2px;
+    width: 100%;
+    background-color: black;
+}
+
+.caixa{
+    display: flex;
+    justify-content: space-between;
+}
+
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: large;
+}
+
+#upper-caixa{
+    justify-content: end;
+}
+.logo {
+    width: 8%;
+}
+
+.logo img {
+    width: 100%;
+}
+
+#itens a{
+    color: black;
+}
+
+.bg-body-tertiary {
+    background-color: white !important;
+    color: black;
+}
+
+.nav-link {
+    transition: 0.3s;
+}
+
+.nav-link:hover:hover {
+    transform: scale(1.1);
+}
+
+.navbar-nav li{
+    padding-left: 50px;
+}
+
+#caixa-interna
+{
+
+    background-color: white !important; 
+}

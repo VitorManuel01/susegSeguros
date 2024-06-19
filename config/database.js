@@ -1,9 +1,9 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('susegseguros', 'root', 'ASoPEzJsNmCZxoCoPlTGODRZMEYOcpqM', {
-    host: 'monorail.proxy.rlwy.net',
+const sequelize = new Sequelize('railway', 'root', 'WZKtufAhNUwJzkLyJWAVPVTMTrEOQEOq', {
+    host: 'roundhouse.proxy.rlwy.net',
     dialect: 'mysql',
-    port: '49730',
+    port: '39955',
     
     // configuração necessária para evitar o erro ECONNRESET
     dialectOptions: {
