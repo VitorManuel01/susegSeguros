@@ -1,29 +1,65 @@
 const express = require('express')
-const {engine} = require('express-handlebars')
+const { engine } = require('express-handlebars')
 const bp = require('body-parser')
 const session = require('express-session');
 const flash = require('express-flash');
 const multer = require('multer')
+const passport = require('./config/passportConfig')
 
 
 
 const app = express()
-const upload = multer({dest: 'public/DOCS'})
+const upload = multer({ dest: 'public/DOCS' })
 
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
 app.set('views', './views')
-app.use(bp.urlencoded({extended: true}))
+app.use(bp.urlencoded({ extended: true }))
 app.use(bp.json())
 app.use(express.static('public'));
 
 app.use(session({
-    secret: 'chaveSuseg', 
+    secret: 'chaveSuseg',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    cookie: {maxAge: 60000}
 }));
 
 app.use(flash());
+
+app.use(passport.session());
+app.use(passport.initialize());
+
+
+
+const User = require('./models/user');
+
+app.post('/login', passport.authenticate('local', { 
+    
+    failureRedirect: "/login", // Redirect back to login page on failure
+    failureFlash: true // Enable flash messages for failure cases
+}));
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.redirect('/login');
+    }
+
+}
+
+// Example route for login page
+app.get('/login', (req, res) => {
+    
+    res.render('login'); // Render your login form view (e.g., login.ejs)
+});
+
+// Example route for logout
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
 
 
 
@@ -32,27 +68,27 @@ let mensagens = [];
 const Mensagem = require('./models/mensagem');
 const Cotacao = require('./models/cotacao');
 
-app.get('/', (req, res)=>{
+app.get('/', (req, res) => {
     res.render('home', { 'sucesso': req.flash('sucesso') })
 })
 
-app.get('/contato', (req, res)=>{
+app.get('/contato', isLoggedIn, (req, res) => {
     res.render('contato')
 })
 
-app.get('/seu-seguro', (req, res)=>{
+app.get('/seu-seguro', isLoggedIn,(req, res) => {
     res.render('seu-seguro')
 })
 
-app.get('/cotacao-auto', (req, res)=>{
+app.get('/cotacao-auto', isLoggedIn,(req, res) => {
     res.render('cotacao-auto')
 })
 
-app.get('/atendimento', (req, res)=>{
+app.get('/atendimento', (req, res) => {
     res.render('atendimento')
 })
 
-app.get('/sobre-nos', (req, res)=>{
+app.get('/sobre-nos', (req, res) => {
     res.render('sobre-nos')
 })
 
@@ -146,7 +182,7 @@ app.post('/contato', async (req, res) => {
     try {
         // Salvar a mensagem no banco de dados usando Sequelize
         const novaMensagem = await Mensagem.create(mensagem);
-        
+
         // Adicionar a mensagem ao array de mensagens temporárias
         mensagens.push(novaMensagem);
 
@@ -160,7 +196,36 @@ app.post('/contato', async (req, res) => {
     }
 });
 
+app.get('/register', (req, res) => {
+    res.render('register'); // Ensure 'register' corresponds to your HTML form view
+});
 
-app.listen(5500, ()=>{
+// POST route for handling registration
+app.post('/register', async (req, res) => {
+    try {
+        const { nome, email, senha, role, isAdmin, isIntern } = req.body;
+
+        // Convert checkbox values to boolean
+        const isAdminValue = isAdmin === 'on';
+        const isInternValue = isIntern === 'on';
+
+        await User.create({
+            nome,
+            email,
+            senha, // Save the hashed password
+            role,
+            isAdmin: isAdminValue,
+            isIntern: isInternValue
+        });
+        console.log('Received data:', { nome, email, senha, role, isAdmin: isAdminValue, isIntern: isInternValue });
+        res.redirect('/login');
+    } catch (err) {
+        console.error('Error:', err);
+        res.redirect('/register');
+    }
+});
+
+
+app.listen(5500, () => {
     console.log("Rodei a porra do sistema no carai da porta http://localhost:5500")
 })
