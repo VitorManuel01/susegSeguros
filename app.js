@@ -22,7 +22,7 @@ app.use(session({
     secret: 'chaveSuseg',
     resave: false,
     saveUninitialized: false,
-    cookie: {maxAge: 60000}
+    cookie: {maxAge: 6000}
 }));
 
 app.use(flash());
