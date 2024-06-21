@@ -1,1 +1,7 @@
 {{> header-adm}}
+
+    {{#if alertMessage}}
+        <script>
+            alert("{{alertMessage}}");
+        </script>
+    {{/if}}

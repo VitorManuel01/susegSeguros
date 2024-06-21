@@ -1,3 +1,13 @@
+{{> header-adm}}
+
+<style>
+    #aviso-senha {
+    color: red;
+    font-weight: bold;
+    font-size: smaller;
+}
+
+</style>
 <form action="/adm/register" method="post">
     <div>
         <label for="nome">Nome:</label>
@@ -8,9 +18,14 @@
         <input type="email" id="email" name="email" required />
     </div>
     <div>
-        <label for="senha">Password:</label>
+        <label for="senha">Senha:</label>
         <input type="password" id="senha" name="senha" required />
     </div>
+    <div>
+        <label for="senha">Confirmar senha:</label>
+        <input type="password" id="senha-confirm" name="senha-confirm" required />
+    </div>
+    <div id="aviso-senha"></div>
     <div>
         <label for="role">Role:</label>
         <input type="text" id="role" name="role" required />
@@ -27,3 +42,5 @@
         <button type="submit">Register</button>
     </div>
 </form>
+
+<script src="/JS/register.js"></script>

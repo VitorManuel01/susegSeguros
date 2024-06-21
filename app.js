@@ -49,6 +49,31 @@ function isLoggedIn(req, res, next) {
 
 }
 
+function isLoggedInRegister(req, res, next) {
+    if (req.isAuthenticated()) {
+        // Verificar se o usuário é administrador (exemplo: isAdmin)
+        User.findByPk(req.user.id)
+            .then(user => {
+                if (!user) {
+                    throw new Error('Usuário não encontrado');
+                }
+                if (user.isAdmin) {
+                    return next(); // Permite o acesso à rota de registro
+                } else {
+                    // Caso o usuário não seja administrador, define um alerta
+                    req.session.alertMessage = 'Você não possui permissão para isso.';
+                    res.redirect('/adm'); // Redireciona para a mesma rota
+                }
+            })
+            .catch(err => {
+                console.error('Erro ao encontrar usuário:', err);
+                res.redirect('/login'); // Em caso de erro, redireciona para o login
+            });
+    } else {
+        res.redirect('/login'); // Se não autenticado, redireciona para a página de login
+    }
+}
+
 // Example route for login page
 app.get('/login', (req, res) => {
     
@@ -73,7 +98,10 @@ app.get('/', (req, res) => {
 })
 
 app.get('/adm',isLoggedIn, (req, res) => {
-    res.render('adm')
+    res.render('adm', { alertMessage: req.session.alertMessage });
+    
+    // Limpa a variável de sessão após renderizar para que o alerta só seja exibido uma vez
+    req.session.alertMessage = null;
 })
 
 app.get('/contato', (req, res) => {
@@ -200,7 +228,7 @@ app.post('/contato', async (req, res) => {
     }
 });
 
-app.get('/adm/register', (req, res) => {
+app.get('/adm/register',isLoggedInRegister ,(req, res) => {
     res.render('register'); // Ensure 'register' corresponds to your HTML form view
 });
 
