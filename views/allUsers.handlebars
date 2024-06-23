@@ -1,0 +1,31 @@
+<style>
+    .user-card {
+        width: 18rem;
+        /* Largura do card */
+        margin-bottom: 20px;
+        /* Espaço entre os cards */
+    }
+</style>
+
+<div class="container">
+    <h1 class="mt-5">Todos os Usuários</h1>
+    <div class="row">
+        {{#each users}}
+        <div class="col-md-4">
+            <div class="card user-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{nome}}</h5>
+                    <p class="card-text">Email: {{email}}</p>
+                    <p class="card-text">Role: {{role}}</p>
+                    <form action="/adm/updateUser/{{id}}" method="GET" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Editar</button>
+                    </form>
+                    <form action="/adm/deleteUser/{{id}}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger ml-2">Excluir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

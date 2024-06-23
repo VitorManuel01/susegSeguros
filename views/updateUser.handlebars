@@ -1,0 +1,19 @@
+  <h1>Editar Usuário</h1>
+  <form action="/adm/updateUser/{{user.id}}" method="POST">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" value="{{user.nome}}" required>
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{user.email}}" required>
+    <br>
+    <label for="role">Função:</label>
+    <input type="text" id="role" name="role" value="{{user.role}}" required>
+    <br>
+    <label for="isAdmin">Admin:</label>
+    <input type="checkbox" id="isAdmin" name="isAdmin" {{#if user.isAdmin}}checked{{/if}}>
+    <br>
+    <label for="isIntern">Estagiário:</label>
+    <input type="checkbox" id="isIntern" name="isIntern" {{#if user.isIntern}}checked{{/if}}>
+    <br>
+    <button type="submit">Salvar Alterações</button>
+  </form>

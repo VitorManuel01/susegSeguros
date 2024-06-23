@@ -8,10 +8,19 @@ const passport = require('./config/passportConfig')
 
 
 
+
 const app = express()
 const upload = multer({ dest: 'public/DOCS' })
 
-app.engine('handlebars', engine())
+app.engine('handlebars', engine({
+    defaultLayout: 'main', // Especifique o layout padrão se necessário
+    extname: '.handlebars', // Especifique a extensão dos arquivos de template
+    runtimeOptions: {
+      allowProtoMethodsByDefault: true,
+      allowProtoPropertiesByDefault: true,
+    }
+  }));
+
 app.set('view engine', 'handlebars')
 app.set('views', './views')
 app.use(bp.urlencoded({ extended: true }))
@@ -22,7 +31,7 @@ app.use(session({
     secret: 'chaveSuseg',
     resave: false,
     saveUninitialized: false,
-    cookie: {maxAge: 6000}
+    cookie: {maxAge: 60000}
 }));
 
 app.use(flash());
@@ -90,6 +99,7 @@ app.get('/logout', (req, res) => {
 
 let cotacoes = [];
 let mensagens = [];
+let usuarios = [];
 const Mensagem = require('./models/mensagem');
 const Cotacao = require('./models/cotacao');
 
@@ -248,7 +258,7 @@ app.post('/adm/register', async (req, res) => {
             role,
             isAdmin: isAdminValue,
             isIntern: isInternValue
-        });
+        }).then();
         console.log('Received data:', { nome, email, senha, role, isAdmin: isAdminValue, isIntern: isInternValue });
         res.redirect('/login');
     } catch (err) {
@@ -257,6 +267,100 @@ app.post('/adm/register', async (req, res) => {
     }
 });
 
+app.get('/adm/allUsers', isLoggedInRegister, async (req, res) => {
+    try {
+      const users = await User.findAll(); // Busca todos os usuários
+  
+      res.render('allUsers', { users }); // Renderiza a página allUsers com os usuários
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao buscar usuários.' });
+    }
+});
+
+
+// Rota para editar um usuário
+app.get('/adm/updateUser/:id', isLoggedInRegister, async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const user = await User.findByPk(id); // Busca o usuário pelo ID
+  
+      if (!user) {
+        return res.status(404).json({ error: 'Usuário não encontrado.' });
+      }
+  
+      res.render('updateUser', { user }); // Renderiza a página editUser com o usuário encontrado
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao buscar usuário.' });
+    }
+  });
+
+// Rota para processar a atualização do usuário (requisição POST)
+app.post('/adm/updateUser/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { nome, email, role, isAdmin, isIntern } = req.body;
+  
+      const user = await User.findByPk(id); // Encontra o usuário pelo ID
+  
+      if (!user) {
+        return res.status(404).json({ error: 'Usuário não encontrado.' });
+      }
+  
+      // Atualiza os dados do usuário com os novos valores
+      user.nome = nome;
+      user.email = email;
+      user.role = role;
+      user.isAdmin = !!isAdmin; // Converte para booleano
+      user.isIntern = !!isIntern; // Converte para booleano
+  
+      await user.save(); // Salva as alterações no banco de dados
+  
+      res.redirect('/adm/allUsers'); // Redireciona para a lista de usuários após a edição
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao atualizar usuário.' });
+    }
+  });
+  
+  // Rota para renderizar o formulário de deleção de usuário
+app.get('/adm/deleteUser/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await User.findByPk(id); // Encontra o usuário pelo ID
+  
+      if (!user) {
+        return res.status(404).json({ error: 'Usuário não encontrado.' });
+      }
+  
+      res.render('deleteUser', { user }); // Renderiza o template deleteUser com os dados do usuário
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao buscar usuário.' });
+    }
+  });
+  
+  // Rota para deletar o usuário (requisição POST)
+  app.post('/adm/deleteUser/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await User.findByPk(id); // Encontra o usuário pelo ID
+  
+      if (!user) {
+        return res.status(404).json({ error: 'Usuário não encontrado.' });
+      }
+  
+      await user.destroy(); // Deleta o usuário do banco de dados
+  
+      res.redirect('/adm/allUsers'); // Redireciona para a lista de usuários após a deleção
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao deletar usuário.' });
+    }
+  });
+  
 
 app.listen(5500, () => {
     console.log("Rodei a porra do sistema no carai da porta http://localhost:5500")
