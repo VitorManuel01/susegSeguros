@@ -1,0 +1,209 @@
+<div class="container">
+    <h1 class="mt-5">Registrar Apólice</h1>
+    <form action="/adm/registrarApolice" method="POST">
+        <!-- Dados da Apólice -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Dados da Apólice
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="numeroApolice">Número da Apólice:</label>
+                    <input type="text" class="form-control" id="numeroApolice" name="numeroApolice" required>
+                </div>
+                <div class="form-group">
+                    <label for="dataInicioVigencia">Data Início da Vigência:</label>
+                    <input type="date" class="form-control" id="dataInicioVigencia" name="dataInicioVigencia" required>
+                </div>
+                <div class="form-group">
+                    <label for="codigoCI">Código C.I.:</label>
+                    <input type="text" class="form-control" id="codigoCI" name="codigoCI">
+                </div>
+                <div class="form-group">
+                    <label for="dataEmissao">Data da Emissão da Apólice:</label>
+                    <input type="date" class="form-control" id="dataEmissao" name="dataEmissao" required>
+                </div>
+                <div class="form-group">
+                    <label for="item">Item:</label>
+                    <input type="text" class="form-control" id="item" name="item" required>
+                </div>
+                <div class="form-group">
+                    <label for="dataFinalVigencia">Data Final da Vigência:</label>
+                    <input type="date" class="form-control" id="dataFinalVigencia" name="dataFinalVigencia" required>
+                </div>
+                <div class="form-group">
+                    <label for="classeBonus">Classe de Bônus:</label>
+                    <input type="text" class="form-control" id="classeBonus" name="classeBonus">
+                </div>
+            </div>
+        </div>
+
+        <!-- Dados do Segurado -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Dados do Segurado
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="seguradoNome">Nome do Segurado:</label>
+                    <input type="text" class="form-control" id="seguradoNome" name="seguradoNome" value="{{cotacao.nome}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="seguradoSexo">Sexo:</label>
+                    <select class="form-control" id="seguradoSexo" name="seguradoSexo">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Feminino">Feminino</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="seguradoRG">RG:</label>
+                    <input type="text" class="form-control" id="seguradoRG" name="seguradoRG">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoEndereco">Endereço:</label>
+                    <input type="text" class="form-control" id="seguradoEndereco" name="seguradoEndereco">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoBairro">Bairro:</label>
+                    <input type="text" class="form-control" id="seguradoBairro" name="seguradoBairro">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoCidade">Cidade:</label>
+                    <input type="text" class="form-control" id="seguradoCidade" name="seguradoCidade">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoFoneResidencial">Fone Residencial:</label>
+                    <input type="text" class="form-control" id="seguradoFoneResidencial" name="seguradoFoneResidencial">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoFoneComercial">Fone Comercial:</label>
+                    <input type="text" class="form-control" id="seguradoFoneComercial" name="seguradoFoneComercial">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoDtNascimento">Data de Nascimento:</label>
+                    <input type="date" class="form-control" id="seguradoDtNascimento" name="seguradoDtNascimento">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoCPF">CPF:</label>
+                    <input type="text" class="form-control" id="seguradoCPF" name="seguradoCPF" value="{{cotacao.cpf}}">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoEstado">Estado:</label>
+                    <input type="text" class="form-control" id="seguradoEstado" name="seguradoEstado">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoCEP">CEP:</label>
+                    <input type="text" class="form-control" id="seguradoCEP" name="seguradoCEP" value="{{cotacao.cep}}">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoCelular">Celular:</label>
+                    <input type="text" class="form-control" id="seguradoCelular" name="seguradoCelular" value="{{cotacao.telefone}}">
+                </div>
+                <div class="form-group">
+                    <label for="seguradoEmail">E-mail:</label>
+                    <input type="email" class="form-control" id="seguradoEmail" name="seguradoEmail" value="{{cotacao.email}}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Dados do Veículo -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Dados do Veículo
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="veiculoNome">Nome do Veículo:</label>
+                    <input type="text" class="form-control" id="veiculoNome" name="veiculoNome" value="{{cotacao.marcaNome}}" "{{cotacao.modeloNome}}">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoCodigoFIPE">Código Tabela FIPE:</label>
+                    <input type="text" class="form-control" id="veiculoCodigoFIPE" name="veiculoCodigoFIPE">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoAno">Ano:</label>
+                    <input type="text" class="form-control" id="veiculoAno" name="veiculoAno">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoModelo">Modelo:</label>
+                    <input type="text" class="form-control" id="veiculoModelo" name="veiculoModelo" value="{{cotacao.anoNome}}">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoCombustivel">Combustível:</label>
+                    <input type="text" class="form-control" id="veiculoCombustivel" name="veiculoCombustivel">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoCapacidade">Capacidade:</label>
+                    <input type="text" class="form-control" id="veiculoCapacidade" name="veiculoCapacidade">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoPortas">Portas:</label>
+                    <input type="text" class="form-control" id="veiculoPortas" name="veiculoPortas">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoCambioAutomatico">Câmbio Automático:</label>
+                    <input type="text" class="form-control" id="veiculoCambioAutomatico" name="veiculoCambioAutomatico">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoChassis">Chassis:</label>
+                    <input type="text" class="form-control" id="veiculoChassis" name="veiculoChassis" value="{{cotacao.chassis}}">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoPlaca">Placa:</label>
+                    <input type="text" class="form-control" id="veiculoPlaca" name="veiculoPlaca" value="{{cotacao.placa}}">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoRenavam">Renavam:</label>
+                    <input type="text" class="form-control" id="veiculoRenavam" name="veiculoRenavam">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoAlienado">Alienado:</label>
+                    <input type="text" class="form-control" id="veiculoAlienado" name="veiculoAlienado">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoUso">Uso:</label>
+                    <input type="text" class="form-control" id="veiculoUso" name="veiculoUso">
+                </div>
+                <div class="form-group">
+                    <label for="veiculoCategoriaTarifaria">Categoria Tarifária:</label>
+                    <input type="text" class="form-control" id="veiculoCategoriaTarifaria" name="veiculoCategoriaTarifaria">
+                </div>
+            </div>
+        </div>
+
+        <!-- Dados do Corretor -->
+        <div class="card mt-4">
+            <div class="card-header">
+                Dados do Corretor
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="nomeCorretor">Nome do Corretor:</label>
+                    <input type="text" class="form-control" id="nomeCorretor" name="nomeCorretor">
+                </div>
+                <div class="form-group">
+                    <label for="susepOficial">SUSEP Oficial:</label>
+                    <input type="text" class="form-control" id="susepOficial" name="susepOficial">
+                </div>
+                <div class="form-group">
+                    <label for="susepSeguradora">SUSEP Seguradora:</label>
+                    <input type="text" class="form-control" id="susepSeguradora" name="susepSeguradora">
+                </div>
+                <div class="form-group">
+                    <label for="telefoneCorretora">Telefone da Corretora:</label>
+                    <input type="text" class="form-control" id="telefoneCorretora" name="telefoneCorretora">
+                </div>
+                <div class="form-group">
+                    <label for="emailCorretora">E-mail da Corretora:</label>
+                    <input type="email" class="form-control" id="emailCorretora" name="emailCorretora">
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de Envio -->
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary">Registrar Apólice</button>
+        </div>
+    </form>
+</div>

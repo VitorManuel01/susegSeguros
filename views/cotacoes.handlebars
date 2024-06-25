@@ -1,0 +1,62 @@
+<style>
+    .user-card {
+        width: 18rem;
+        /* Largura do card */
+        margin-bottom: 20px;
+        /* Espaço entre os cards */
+    }
+</style>
+
+<div class="container">
+    <h1 class="mt-5">Todos as Cotações</h1>
+    <div class="row">
+        {{#each cotacao}}
+        <div class="col-md-4">
+            <div class="card user-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.nome}}</h5>
+                    <p class="card-text">Email: {{this.email}}</p>
+                    <p class="card-text">Telefone: {{this.telefone}}</p>
+                    <p class="card-text">CPF: {{this.cpf}}</p>
+                    <p class="card-text">Opção de Veículo: {{this.opcaoVeiculo}}</p>
+                    <p class="card-text">Estado Civil: {{this.estadoCivil}}</p>
+                    <p class="card-text">Data de Nascimento: {{this.dtNascimento}}</p>
+                    <p class="card-text">CEP: {{this.cep}}</p>
+                    <p class="card-text">Placa: {{this.placa}}</p>
+                    <p class="card-text">Chassis: {{this.chassis}}</p>
+                    <p class="card-text">Marca do Veículo: {{this.marcaNome}}</p>
+                    <p class="card-text">Código da Marca: {{this.marcaCodigo}}</p>
+                    <p class="card-text">Modelo do Veículo: {{this.modeloNome}}</p>
+                    <p class="card-text">Código do Modelo: {{this.modeloCodigo}}</p>
+                    <p class="card-text">Ano do Veículo: {{this.anoNome}}</p>
+                    <p class="card-text">Código do Ano: {{this.anoCodigo}}</p>
+                    <p class="card-text">Possui Seguro: {{this.possuiSeguro}}</p>
+                    <p class="card-text">Possui Garagem: {{this.possuiGaragem}}</p>
+                    <p class="card-text">É Zero Km: {{this.isZeroKm}}</p>
+
+<form action="/adm/registrarApolice/{{this.id}}" method="GET" class="d-inline">
+    <button type="submit" class="btn btn-primary btn-registrar-apolice"
+            data-nome="{{this.nome}}"
+            data-email="{{this.email}}"
+            data-telefone="{{this.telefone}}"
+            data-cpf="{{this.cpf}}"
+            data-cep="{{this.cep}}"
+            data-marca-nome="{{this.marcaNome}}"
+            data-modelo-nome="{{this.modeloNome}}"
+            data-ano-nome="{{this.anoNome}}"
+            data-chassis="{{this.chassis}}"
+            data-placa="{{this.placa}}">
+        Registrar Apólice
+    </button>
+</form>
+
+                    <form action="/adm/deleteCotacao" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger ml-2">Excluir/Baixa</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+

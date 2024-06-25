@@ -1,0 +1,153 @@
+<style>
+    /* Estilo para o container principal */
+.container {
+    padding: 20px;
+}
+
+/* Estilo para o título principal */
+h1 {
+    margin-top: 30px;
+    font-size: 2.5rem;
+}
+
+/* Estilo para o link "Registrar nova apólice" */
+.nav-link {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Estilo para os cards de apólice */
+.user-card {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+/* Estilo para os títulos dos cards */
+.card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Estilo para os dados dentro dos cards */
+.card-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Estilo para o botão de exclusão/baixa */
+.btn-danger {
+    font-size: 1rem;
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+
+/* Estilo para alinhar o botão ao lado direito */
+.ml-2 {
+    margin-left: 10px;
+}
+
+/* Estilo para adicionar margem na parte inferior do container */
+.container {
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Ajuste da margem direita para a âncora como botão */
+.ml-3 {
+    margin-left: 10px; /* Ajuste conforme necessário */
+    margin-right: 20px; /* Margem direita adicionada */
+}
+
+</style>
+
+<div class="container">
+    <div class="container">
+      <div class="row">
+         <div class="col">
+            <h1 class="mt-5">Todos as Apólices</h1>
+         </div>
+         <div class="col text-right"> <!-- Colocado text-right para alinhar à direita -->
+            <a class="btn btn-primary ml-3" href="/adm/resgistrarApolice"><b>Registrar nova apólice</b></a>
+         </div>
+      </div>
+    </div>
+    <div class="row">
+        {{#each apolices}}
+        <div class="col-md-4">
+            <div class="card user-card">
+                <div class="card-body">
+                    <h5 class="card-title">Apólice: {{this.numeroApolice}}</h5>
+                    <p class="card-text">
+                        <strong>Dados da Apólice:</strong><br>
+                        <strong>Data Início da Vigência:</strong> {{this.dataInicioVigencia}}<br>
+                        <strong>Código C.I.:</strong> {{this.codigoCI}}<br>
+                        <strong>Data de Emissão:</strong> {{this.dataEmissao}}<br>
+                        <strong>Item:</strong> {{this.item}}<br>
+                        <strong>Data Final da Vigência:</strong> {{this.dataFinalVigencia}}<br>
+                        <strong>Classe de Bônus:</strong> {{this.classeBonus}}
+                    </p>
+                    <hr>
+                    <h5 class="card-title">Dados do Segurado</h5>
+                    <p class="card-text">
+                        <strong>Nome:</strong> {{this.seguradoNome}}<br>
+                        <strong>Sexo:</strong> {{this.seguradoSexo}}<br>
+                        <strong>RG:</strong> {{this.seguradoRG}}<br>
+                        <strong>Endereço:</strong> {{this.seguradoEndereco}}<br>
+                        <strong>Bairro:</strong> {{this.seguradoBairro}}<br>
+                        <strong>Cidade:</strong> {{this.seguradoCidade}}<br>
+                        <strong>Fone Residencial:</strong> {{this.seguradoFoneResidencial}}<br>
+                        <strong>Fone Comercial:</strong> {{this.seguradoFoneComercial}}<br>
+                        <strong>Data de Nascimento:</strong> {{this.seguradoDtNascimento}}<br>
+                        <strong>CPF:</strong> {{this.seguradoCPF}}<br>
+                        <strong>Estado:</strong> {{this.seguradoEstado}}<br>
+                        <strong>CEP:</strong> {{this.seguradoCEP}}<br>
+                        <strong>Celular:</strong> {{this.seguradoCelular}}<br>
+                        <strong>E-mail:</strong> {{this.seguradoEmail}}
+                    </p>
+                    <hr>
+                    <h5 class="card-title">Dados do Veículo</h5>
+                    <p class="card-text">
+                        <strong>Nome do Veículo:</strong> {{this.veiculoNome}}<br>
+                        <strong>Código Tabela FIPE:</strong> {{this.veiculoCodigoFIPE}}<br>
+                        <strong>Ano:</strong> {{this.veiculoAno}}<br>
+                        <strong>Modelo:</strong> {{this.veiculoModelo}}<br>
+                        <strong>Combustível:</strong> {{this.veiculoCombustivel}}<br>
+                        <strong>Capacidade:</strong> {{this.veiculoCapacidade}}<br>
+                        <strong>Portas:</strong> {{this.veiculoPortas}}<br>
+                        <strong>Câmbio Automático:</strong> {{this.veiculoCambioAutomatico}}<br>
+                        <strong>Chassis:</strong> {{this.veiculoChassis}}<br>
+                        <strong>Placa:</strong> {{this.veiculoPlaca}}<br>
+                        <strong>Renavam:</strong> {{this.veiculoRenavam}}<br>
+                        <strong>Alienado:</strong> {{this.veiculoAlienado}}<br>
+                        <strong>Uso:</strong> {{this.veiculoUso}}<br>
+                        <strong>Categoria Tarifária:</strong> {{this.veiculoCategoriaTarifaria}}
+                    </p>
+                    <hr>
+                    <h5 class="card-title">Dados do Corretor</h5>
+                    <p class="card-text">
+                        <strong>Nome do Corretor:</strong> {{this.nomeCorretor}}<br>
+                        <strong>SUSEP Oficial:</strong> {{this.susepOficial}}<br>
+                        <strong>SUSEP Seguradora:</strong> {{this.susepSeguradora}}<br>
+                        <strong>Telefone da Corretora:</strong> {{this.telefoneCorretora}}<br>
+                        <strong>E-mail da Corretora:</strong> {{this.emailCorretora}}
+                    </p>
+                    
+                    <!-- Formulário de exclusão/baixa da apólice -->
+                    <form action="/adm/deleteApolice" method="POST" class="d-inline">
+                        <input type="hidden" name="apoliceId" value="{{this.id}}">
+                        <button type="submit" class="btn btn-danger ml-2">Excluir/Baixa</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

@@ -31,7 +31,7 @@ app.use(session({
     secret: 'chaveSuseg',
     resave: false,
     saveUninitialized: false,
-    cookie: {maxAge: 60000}
+    cookie: {maxAge: 600000}
 }));
 
 app.use(flash());
@@ -99,9 +99,10 @@ app.get('/logout', (req, res) => {
 
 let cotacoes = [];
 let mensagens = [];
-let usuarios = [];
+let apolices = [];
 const Mensagem = require('./models/mensagem');
 const Cotacao = require('./models/cotacao');
+const Apolice = require('./models/apolice');
 
 app.get('/', (req, res) => {
     res.render('home', { 'sucesso': req.flash('sucesso') })
@@ -144,7 +145,7 @@ app.post('/cotacao-auto', upload.single('docVeic'), async (req, res) => {
         const estadoCivil = req.body['itens_EstadoCivil'];
         const dtNascimento = req.body.dataNascimento;
         const cep = req.body.cep.replace(/\D/g, '');
-        const placa = req.body.placa.replace(/\D/g, '');
+        const placa = req.body.placa;
         const chassis = req.body.chassis;
         const documento = req.file.filename;
         const marcaNome = req.body.marcaNome;
@@ -264,6 +265,143 @@ app.post('/adm/register', async (req, res) => {
     } catch (err) {
         console.error('Error:', err);
         res.redirect('/adm/register');
+    }
+});
+
+app.get('/adm/cotacoes', isLoggedIn, async (req, res) => {
+    try {
+      let cotacao = await Cotacao.findAll(); // Busca todos os usuários
+  
+      res.render('cotacoes', { cotacao }); // Renderiza a página allUsers com os usuários
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao buscar cotaçoes.' });
+    }
+});
+
+app.get('/adm/registrarApolice/:id', isLoggedIn, async(req, res)=>{
+    try {
+        const id = req.params.id
+        let cotacao = await Cotacao.findByPk(id) 
+        res.render('registrarApolice', { cotacao });
+    } catch (error) {
+        console.log(error)
+        
+    }
+});
+
+app.get('/adm/registrarApolice', isLoggedIn, async(req, res)=>{
+        res.render('registrarApolice');
+});
+
+app.get('/adm/apolices', isLoggedIn, async (req, res) => {
+    try {
+      let apolices = await Apolice.findAll(); // Busca todos os usuários
+  
+      res.render('apolices', { apolices }); // Renderiza a página allUsers com os usuários
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao buscar cotaçoes.' });
+    }
+});
+
+app.post('/adm/registrarApolice', async (req, res) => {
+    const {
+        numeroApolice,
+        dataInicioVigencia,
+        codigoCI,
+        dataEmissao,
+        item,
+        dataFinalVigencia,
+        classeBonus,
+        seguradoNome,
+        seguradoSexo,
+        seguradoRG,
+        seguradoEndereco,
+        seguradoBairro,
+        seguradoCidade,
+        seguradoFoneResidencial,
+        seguradoFoneComercial,
+        seguradoDtNascimento,
+        seguradoCPF,
+        seguradoEstado,
+        seguradoCEP,
+        seguradoCelular,
+        seguradoEmail,
+        veiculoNome,
+        veiculoCodigoFIPE,
+        veiculoAno,
+        veiculoModelo,
+        veiculoCombustivel,
+        veiculoCapacidade,
+        veiculoPortas,
+        veiculoCambioAutomatico,
+        veiculoChassis,
+        veiculoPlaca,
+        veiculoRenavam,
+        veiculoAlienado,
+        veiculoUso,
+        veiculoCategoriaTarifaria,
+        nomeCorretor,
+        susepOficial,
+        susepSeguradora,
+        telefoneCorretora,
+        emailCorretora
+    } = req.body;
+
+    // Criar um objeto com todos os dados recebidos
+    const apolice = {
+        numeroApolice,
+        dataInicioVigencia,
+        codigoCI,
+        dataEmissao,
+        item,
+        dataFinalVigencia,
+        classeBonus,
+        seguradoNome,
+        seguradoSexo,
+        seguradoRG,
+        seguradoEndereco,
+        seguradoBairro,
+        seguradoCidade,
+        seguradoFoneResidencial,
+        seguradoFoneComercial,
+        seguradoDtNascimento,
+        seguradoCPF,
+        seguradoEstado,
+        seguradoCEP,
+        seguradoCelular,
+        seguradoEmail,
+        veiculoNome,
+        veiculoCodigoFIPE,
+        veiculoAno,
+        veiculoModelo,
+        veiculoCombustivel,
+        veiculoCapacidade,
+        veiculoPortas,
+        veiculoCambioAutomatico,
+        veiculoChassis,
+        veiculoPlaca,
+        veiculoRenavam,
+        veiculoAlienado,
+        veiculoUso,
+        veiculoCategoriaTarifaria,
+        nomeCorretor,
+        susepOficial,
+        susepSeguradora,
+        telefoneCorretora,
+        emailCorretora
+    };
+
+    try {
+        // Salvar a apólice no banco de dados usando Sequelize
+        const novaApolice = await Apolice.create(apolice);
+
+        // Redirecionar para a página de apólices após o salvamento
+        res.redirect('/adm/apolices');
+    } catch (error) {
+        console.error('Erro ao salvar a apólice:', error);
+        res.status(500).send('Erro ao salvar a apólice.');
     }
 });
 
