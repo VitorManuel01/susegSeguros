@@ -66,12 +66,12 @@ function isLoggedInRegister(req, res, next) {
                 if (!user) {
                     throw new Error('Usuário não encontrado');
                 }
-                if (user.isAdmin) {
+                if (user.isAdmin || user.isMasterAdmin) {
                     return next(); // Permite o acesso à rota de registro
                 } else {
                     // Caso o usuário não seja administrador, define um alerta
                     req.session.alertMessage = 'Você não possui permissão para isso.';
-                    res.redirect('/adm'); // Redireciona para a mesma rota
+                    res.redirect('/adm')
                 }
             })
             .catch(err => {
@@ -90,9 +90,13 @@ app.get('/login', (req, res) => {
 });
 
 // Example route for logout
-app.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
+app.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
 });
 
 
@@ -239,28 +243,25 @@ app.post('/contato', async (req, res) => {
     }
 });
 
-app.get('/adm/register',isLoggedInRegister ,(req, res) => {
+app.get('/adm/register', isLoggedInRegister,(req, res) => {
     res.render('register'); // Ensure 'register' corresponds to your HTML form view
 });
 
 // POST route for handling registration
-app.post('/adm/register', async (req, res) => {
+app.post('/adm/register', isLoggedInRegister, async (req, res) => {
     try {
-        const { nome, email, senha, role, isAdmin, isIntern } = req.body;
+        const { nome, email, senha, funcao, isAdmin} = req.body;
 
         // Convert checkbox values to boolean
         const isAdminValue = isAdmin === 'on';
-        const isInternValue = isIntern === 'on';
 
         await User.create({
             nome,
             email,
             senha, // Save the hashed password
-            role,
-            isAdmin: isAdminValue,
-            isIntern: isInternValue
+            funcao,
+            isAdmin: isAdminValue
         }).then();
-        console.log('Received data:', { nome, email, senha, role, isAdmin: isAdminValue, isIntern: isInternValue });
         res.redirect('/login');
     } catch (err) {
         console.error('Error:', err);
@@ -270,9 +271,9 @@ app.post('/adm/register', async (req, res) => {
 
 app.get('/adm/cotacoes', isLoggedIn, async (req, res) => {
     try {
-      let cotacao = await Cotacao.findAll(); // Busca todos os usuários
+      let cotacao = await Cotacao.findAll(); 
   
-      res.render('cotacoes', { cotacao }); // Renderiza a página allUsers com os usuários
+      res.render('cotacoes', { cotacao }); 
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Erro ao buscar cotaçoes.' });
@@ -296,9 +297,9 @@ app.get('/adm/registrarApolice', isLoggedIn, async(req, res)=>{
 
 app.get('/adm/apolices', isLoggedIn, async (req, res) => {
     try {
-      let apolices = await Apolice.findAll(); // Busca todos os usuários
+      let apolices = await Apolice.findAll(); 
   
-      res.render('apolices', { apolices }); // Renderiza a página allUsers com os usuários
+      res.render('apolices', { apolices }); 
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Erro ao buscar cotaçoes.' });
@@ -408,8 +409,10 @@ app.post('/adm/registrarApolice', async (req, res) => {
 app.get('/adm/allUsers', isLoggedInRegister, async (req, res) => {
     try {
       const users = await User.findAll(); // Busca todos os usuários
+
+      const filtroUsers = users.filter(user => !user.isMasterAdmin);
   
-      res.render('allUsers', { users }); // Renderiza a página allUsers com os usuários
+      res.render('allUsers', { filtroUsers }); // Renderiza a página allUsers com os usuários
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Erro ao buscar usuários.' });
@@ -417,8 +420,10 @@ app.get('/adm/allUsers', isLoggedInRegister, async (req, res) => {
 });
 
 
+
+
 // Rota para editar um usuário
-app.get('/adm/updateUser/:id', isLoggedInRegister, async (req, res) => {
+app.get('/adm/updateUser/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;
   
     try {
@@ -479,6 +484,38 @@ app.get('/adm/deleteUser/:id', async (req, res) => {
       res.status(500).json({ error: 'Erro ao buscar usuário.' });
     }
   });
+
+  app.get('/adm/deleteApolice/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const apolice = await Apolice.findByPk(id); 
+  
+      if (!apolice) {
+        return res.status(404).json({ error: 'Apólice não encontrada.' });
+      }
+  
+      res.render('deleteApolice', { apolice });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao buscar apólice.' });
+    }
+  });
+
+  app.get('/adm/deleteCotacao/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const cotacao = await Cotacao.findByPk(id); 
+  
+      if (!cotacao) {
+        return res.status(404).json({ error: 'Cotação não encontrada.' });
+      }
+  
+      res.render('deleteCotacao', { cotacao });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao buscar cotação.' });
+    }
+  });
   
   // Rota para deletar o usuário (requisição POST)
   app.post('/adm/deleteUser/:id', async (req, res) => {
@@ -498,7 +535,42 @@ app.get('/adm/deleteUser/:id', async (req, res) => {
       res.status(500).json({ error: 'Erro ao deletar usuário.' });
     }
   });
+
+  app.post('/adm/deleteApolice/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const apolice = await Apolice.findByPk(id); // Encontra o usuário pelo ID
   
+      if (!apolice) {
+        return res.status(404).json({ error: 'Apólice não encontrada.' });
+      }
+  
+      await apolice.destroy(); 
+  
+      res.redirect('/adm/apolices'); 
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao deletar apólice.' });
+    }
+  });
+  
+  app.post('/adm/deleteCotacao/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const cotacao = await Cotacao.findByPk(id); // Encontra o usuário pelo ID
+  
+      if (!cotacao) {
+        return res.status(404).json({ error: 'Cotação não encontrada.' });
+      }
+  
+      await cotacao.destroy(); 
+  
+      res.redirect('/adm/cotacoes'); 
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Erro ao deletar cotação.' });
+    }
+  });
 
 app.listen(5500, () => {
     console.log("Rodei a porra do sistema no carai da porta http://localhost:5500")

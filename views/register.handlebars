@@ -1,46 +1,45 @@
 {{> header-adm}}
 
-<style>
-    #aviso-senha {
-    color: red;
-    font-weight: bold;
-    font-size: smaller;
-}
-
-</style>
-<form action="/adm/register" method="post">
-    <div>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required />
+    <style>
+        #aviso-senha {
+            color: red;
+            font-weight: bold;
+            font-size: smaller;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Register</h2>
+        <form action="/adm/register" method="post">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" class="form-control" id="senha" name="senha" required>
+            </div>
+            <div class="form-group">
+                <label for="senha-confirm">Confirmar senha:</label>
+                <input type="password" class="form-control" id="senha-confirm" name="senha-confirm" required>
+            </div>
+            <div id="aviso-senha" class="mb-3"></div>
+            <div class="form-group">
+                <label for="funcao">Função:</label>
+                <input type="text" class="form-control" id="funcao" name="funcao" required>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="isAdmin" name="isAdmin">
+                <label class="form-check-label" for="isAdmin">Administrador</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a class="btn btn-primary ml-3" href="/adm"><b>Sair</b></a>
+        </form>
     </div>
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-    </div>
-    <div>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required />
-    </div>
-    <div>
-        <label for="senha">Confirmar senha:</label>
-        <input type="password" id="senha-confirm" name="senha-confirm" required />
-    </div>
-    <div id="aviso-senha"></div>
-    <div>
-        <label for="role">Função:</label>
-        <input type="text" id="role" name="role" required />
-    </div>
-    <div>
-        <label for="isAdmin">Is Admin:</label>
-        <input type="checkbox" id="isAdmin" name="isAdmin" />
-    </div>
-    <div>
-        <label for="isIntern">Is Intern:</label>
-        <input type="checkbox" id="isIntern" name="isIntern" />
-    </div>
-    <div>
-        <button type="submit">Register</button>
-    </div>
-</form>
 
 <script src="/JS/register.js"></script>

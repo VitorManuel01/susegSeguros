@@ -14,10 +14,6 @@ passport.use(new LocalStrategy({
             console.log("Email não encontrado:", email);
             return done(null, false, { message: 'Email não encontrado.' });
         }
-
-        console.log('Plaintext senha:', senha);
-        console.log('Hashed senha from database:', user.senha);
-
         const isMatch = await bcrypt.compare(senha, user.senha);
 
         if (isMatch) {

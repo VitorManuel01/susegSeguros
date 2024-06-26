@@ -5,10 +5,35 @@
         margin-bottom: 20px;
         /* Espaço entre os cards */
     }
+
+    #top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+    #btns{
+        display: flex;
+        flex-direction: row;
+    }
+
+    #btns form{
+       padding: 5px;
+    }
 </style>
 
-<div class="container">
+<div class="container" id="top">
     <h1 class="mt-5">Todos as Cotações</h1>
+    <a class="btn btn-primary ml-3" href="/adm"><b>Sair</b></a>
+
+</div>
+<div class="container">
+
+
     <div class="row">
         {{#each cotacao}}
         <div class="col-md-4">
@@ -34,29 +59,26 @@
                     <p class="card-text">Possui Garagem: {{this.possuiGaragem}}</p>
                     <p class="card-text">É Zero Km: {{this.isZeroKm}}</p>
 
-<form action="/adm/registrarApolice/{{this.id}}" method="GET" class="d-inline">
-    <button type="submit" class="btn btn-primary btn-registrar-apolice"
-            data-nome="{{this.nome}}"
-            data-email="{{this.email}}"
-            data-telefone="{{this.telefone}}"
-            data-cpf="{{this.cpf}}"
-            data-cep="{{this.cep}}"
-            data-marca-nome="{{this.marcaNome}}"
-            data-modelo-nome="{{this.modeloNome}}"
-            data-ano-nome="{{this.anoNome}}"
-            data-chassis="{{this.chassis}}"
-            data-placa="{{this.placa}}">
-        Registrar Apólice
-    </button>
-</form>
+                    <div class="container" id="btns">
+                        <form action="/adm/registrarApolice/{{this.id}}" method="GET" class="d-inline">
+                            <button type="submit" class="btn btn-primary btn-registrar-apolice"
+                                data-nome="{{this.nome}}" data-email="{{this.email}}" data-telefone="{{this.telefone}}"
+                                data-cpf="{{this.cpf}}" data-cep="{{this.cep}}" data-marca-nome="{{this.marcaNome}}"
+                                data-modelo-nome="{{this.modeloNome}}" data-ano-nome="{{this.anoNome}}"
+                                data-chassis="{{this.chassis}}" data-placa="{{this.placa}}">
+                                Registrar Apólice
+                            </button>
+                        </form>
 
-                    <form action="/adm/deleteCotacao" method="POST" class="d-inline">
-                        <button type="submit" class="btn btn-danger ml-2">Excluir/Baixa</button>
-                    </form>
+                        <form action="/adm/deleteCotacao/{{id}}" method="GET" class="d-inline">
+                            <button type="submit" class="btn btn-danger ml-2">Excluir/Baixa</button>
+                        </form>
+                    </div>
+
+
                 </div>
             </div>
         </div>
         {{/each}}
     </div>
 </div>
-

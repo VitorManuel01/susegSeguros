@@ -1,85 +1,104 @@
 <style>
     /* Estilo para o container principal */
-.container {
-    padding: 20px;
-}
+    .container {
+        padding: 20px;
+    }
 
-/* Estilo para o título principal */
-h1 {
-    margin-top: 30px;
-    font-size: 2.5rem;
-}
+    /* Estilo para o título principal */
+    h1 {
+        margin-top: 30px;
+        font-size: 2.5rem;
+    }
 
-/* Estilo para o link "Registrar nova apólice" */
-.nav-link {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
+    /* Estilo para o link "Registrar nova apólice" */
+    .nav-link {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
 
-/* Estilo para os cards de apólice */
-.user-card {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 15px;
-    background-color: #f9f9f9;
-}
+    /* Estilo para os cards de apólice */
+    .user-card {
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 15px;
+        background-color: #f9f9f9;
+    }
 
-/* Estilo para os títulos dos cards */
-.card-title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+    /* Estilo para os títulos dos cards */
+    .card-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
 
-/* Estilo para os dados dentro dos cards */
-.card-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
+    /* Estilo para os dados dentro dos cards */
+    .card-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
 
-/* Estilo para o botão de exclusão/baixa */
-.btn-danger {
-    font-size: 1rem;
-    padding: 5px 10px;
-    margin-top: 10px;
-}
+    /* Estilo para o botão de exclusão/baixa */
+    .btn-danger {
+        font-size: 1rem;
+        padding: 5px 10px;
+        margin-top: 10px;
+    }
 
-/* Estilo para alinhar o botão ao lado direito */
-.ml-2 {
-    margin-left: 10px;
-}
+    /* Estilo para alinhar o botão ao lado direito */
+    .ml-2 {
+        margin-left: 10px;
+    }
 
-/* Estilo para adicionar margem na parte inferior do container */
-.container {
-    margin-bottom: 30px;
-}
+    /* Estilo para adicionar margem na parte inferior do container */
+    .container {
+        margin-bottom: 30px;
+    }
 
-.btn-primary {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
+    .btn-primary {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
 
-/* Ajuste da margem direita para a âncora como botão */
-.ml-3 {
-    margin-left: 10px; /* Ajuste conforme necessário */
-    margin-right: 20px; /* Margem direita adicionada */
-}
+    /* Ajuste da margem direita para a âncora como botão */
+    .ml-3 {
+        margin-left: 10px;
+        /* Ajuste conforme necessário */
+        margin-right: 20px;
+        /* Margem direita adicionada */
+    }
 
+    #top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    #btns {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
 </style>
+<div class="container" id="top">
+    <h1 class="mt-5">Todos as Apólices</h1>
+    <div class="container" id="btns">
+        <a class="btn btn-primary ml-3" href="/adm/registrarApolice"><b>Registrar nova apólice</b></a>
+        <a class="btn btn-primary ml-3" href="/adm"><b>Sair</b></a>
+    </div>
+
+
+</div>
+
+
 
 <div class="container">
-    <div class="container">
-      <div class="row">
-         <div class="col">
-            <h1 class="mt-5">Todos as Apólices</h1>
-         </div>
-         <div class="col text-right"> <!-- Colocado text-right para alinhar à direita -->
-            <a class="btn btn-primary ml-3" href="/adm/resgistrarApolice"><b>Registrar nova apólice</b></a>
-         </div>
-      </div>
-    </div>
+
     <div class="row">
+
         {{#each apolices}}
         <div class="col-md-4">
             <div class="card user-card">
@@ -139,9 +158,9 @@ h1 {
                         <strong>Telefone da Corretora:</strong> {{this.telefoneCorretora}}<br>
                         <strong>E-mail da Corretora:</strong> {{this.emailCorretora}}
                     </p>
-                    
+
                     <!-- Formulário de exclusão/baixa da apólice -->
-                    <form action="/adm/deleteApolice" method="POST" class="d-inline">
+                    <form action="/adm/deleteApolice/{{this.id}}" method="GET" class="d-inline">
                         <input type="hidden" name="apoliceId" value="{{this.id}}">
                         <button type="submit" class="btn btn-danger ml-2">Excluir/Baixa</button>
                     </form>
@@ -150,4 +169,5 @@ h1 {
         </div>
         {{/each}}
     </div>
+
 </div>

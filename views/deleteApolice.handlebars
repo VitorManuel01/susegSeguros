@@ -57,12 +57,12 @@
 
 
 <div class="container">
-  <h1>Deletar Usuário</h1>
-  <p>Deseja realmente deletar o usuário <strong>{{user.nome}}</strong>?</p>
-  <form action="/adm/deleteUser/{{user.id}}" method="POST">
+  <h1>Deletar Apólice</h1>
+  <p>Deseja realmente deletar a apólice <strong>{{apolice.numeroApolice}}</strong>?</p>
+  <form action="/adm/deleteApolice/{{apolice.id}}" method="POST">
     <button type="submit" class="btn btn-danger">Confirmar Deleção</button>
   </form>
-  <form action="/adm/allUsers">
+  <form action="/adm/apolices">
     <button type="submit" class="btn btn-secondary">Cancelar</button>
   </form>
 </div>

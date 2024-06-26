@@ -1,16 +1,37 @@
-// models/user.js
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  User.init({
+    nome: DataTypes.STRING,
+    email: DataTypes.STRING,
+    senha: DataTypes.STRING,
+    funcao: DataTypes.STRING,
+    isMasterAdmin: DataTypes.BOOLEAN,
+    isAdmin: DataTypes.BOOLEAN
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+  return User;
+};
 
-const { Model, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const bcrypt = require('bcrypt');
 
-class User extends Model {
-  static associate(models) {
-    // Define associations here if needed
-  }
-}
-
-User.init({
+const User = sequelize.define('User', {
   nome: {
     type: DataTypes.STRING,
     allowNull: false
@@ -27,15 +48,15 @@ User.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  role: {
+  funcao: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  isAdmin: {
+  isMasterAdmin: {
     type: DataTypes.BOOLEAN,
     allowNull: false
   },
-  isIntern: {
+  isAdmin: {
     type: DataTypes.BOOLEAN,
     allowNull: false
   }
