@@ -41,7 +41,7 @@ Este projeto foi criado com intenção de criar uma aplicação/site da empresa 
 ```bash
 https://github.com/VitorManuel01/susegSeguros.git 
 ```
-2. Utilize o comando para evitar erros:
+2. No terminal utilize o seguinte comando para evitar erros:
 ```bash
 Set-ExecutionPolicy Unrestricted -Scope Process
 ```
